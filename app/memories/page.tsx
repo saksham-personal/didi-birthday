@@ -40,6 +40,7 @@ export default function MemoriesPage() {
         const formattedAlbums = data.map((album: any) => ({
           ...album,
           uploadedAt: new Date(album.created_at).toISOString(),
+          submitter: album.submitted_by,
         }))
         setAlbums(formattedAlbums)
       }

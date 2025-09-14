@@ -113,7 +113,7 @@ export default function MessageWallPage() {
                 <h2 className="font-heading font-bold text-2xl text-foreground mb-2">
                   Birthday Messages ({messages.length})
                 </h2>
-                <p className="text-muted-foreground">Messages from friends, family, and colleagues</p>
+                <p className="text-muted-foreground">Messages by loved ones</p>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -127,7 +127,6 @@ export default function MessageWallPage() {
                     timestamp={message.timestamp}
                     likes={message.likes}
                     color={message.color}
-                    onLike={handleLike}
                     onClick={() => setSelectedMessage(message)} // Added click handler
                   />
                 ))}
