@@ -38,9 +38,6 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Title, description, and submitted_by are required" }, { status: 400 })
     }
 
-    if (description.length > 300) {
-      return NextResponse.json({ error: "Description too long (max 300 characters)" }, { status: 400 })
-    }
 
     const [newMemory] = await sql`
       INSERT INTO memories (title, description, submitted_by)

@@ -72,7 +72,7 @@ export function AlbumCard({ album, onView }: AlbumCardProps) {
 
       <div className="p-4">
         <h3 className="font-semibold text-gray-900 mb-2 line-clamp-2">{album.title}</h3>
-        <p className="text-gray-600 text-sm mb-3 line-clamp-2">{album.description}</p>
+        <p className="text-gray-600 text-sm mb-3 max-h-24 overflow-y-auto">{album.description}</p>
 
         <div className="flex items-center justify-between text-sm text-gray-500">
           <span>By {album.submitter}</span>

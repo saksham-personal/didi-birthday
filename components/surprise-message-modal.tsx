@@ -33,8 +33,8 @@ export function SurpriseMessageModal({ isOpen, onClose, onSubmit }: SurpriseMess
     try {
       await onSubmit({
         sender_name: senderName,
-        message,
-        password,
+        message: message,
+        password: password,
       })
       onClose()
     } catch (error) {

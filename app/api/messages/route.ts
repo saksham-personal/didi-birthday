@@ -25,9 +25,6 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Text and author are required" }, { status: 400 })
     }
 
-    if (text.length > 500) {
-      return NextResponse.json({ error: "Message too long (max 500 characters)" }, { status: 400 })
-    }
 
     const [newMessage] = await sql`
       INSERT INTO messages (text, author, color)

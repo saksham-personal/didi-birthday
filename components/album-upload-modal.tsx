@@ -73,12 +73,12 @@ export function AlbumUploadModal({ isOpen, onClose, onSubmit }: AlbumUploadModal
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    if (!title.trim() || !submitter.trim() || items.length === 0) return
+    if (!title || !submitter || items.length === 0) return
 
     const albumData = {
-      title: title.trim(),
-      description: description.trim(),
-      submitted_by: submitter.trim(),
+      title: title,
+      description: description,
+      submitted_by: submitter,
       items,
       uploadedAt: new Date().toISOString(),
     }
@@ -201,7 +201,7 @@ export function AlbumUploadModal({ isOpen, onClose, onSubmit }: AlbumUploadModal
             </Button>
             <Button
               type="submit"
-              disabled={!title.trim() || !submitter.trim() || items.length === 0}
+              disabled={!title || !submitter || items.length === 0}
               className="flex-1 bg-primary hover:bg-primary/90"
             >
               Share Album

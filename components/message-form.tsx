@@ -41,9 +41,9 @@ export function MessageForm({ onSubmit }: MessageFormProps) {
 
     try {
       await onSubmit({
-        text: message.trim(),
-        author: author.trim(),
-        title: title.trim(),
+        text: message,
+        author: author,
+        title: title,
         color: selectedColor,
       })
 

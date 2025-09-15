@@ -105,7 +105,7 @@ export function StickyNote({
       <div className="space-y-3">
         {title && <h3 className="font-bold text-sm border-b border-current/20 pb-1">{title}</h3>}
 
-        <p className="text-sm leading-relaxed font-medium line-clamp-3">{message}</p>
+        <p className="text-sm leading-relaxed font-medium max-h-24 overflow-y-auto">{message}</p>
 
         <div className="flex items-center justify-between text-xs">
           <div>
