@@ -70,9 +70,23 @@ export default function MemoriesPage() {
     }
   }
 
-  const handleLike = (albumId: string) => {
-    setAlbums((prev) => prev.map((album) => (album.id === albumId ? { ...album, likes: album.likes + 1 } : album)))
-  }
+  const handleLike = async (albumId: string) => {
+    try {
+      const response = await fetch(`/api/memories/${albumId}/like`, {
+        method: "POST",
+      });
+      if (response.ok) {
+        const updatedAlbum = await response.json();
+        setAlbums((prev) =>
+          prev.map((album) =>
+            album.id === albumId ? { ...album, likes: updatedAlbum.likes } : album
+          )
+        );
+      }
+    } catch (error) {
+      console.error("Failed to like album:", error);
+    }
+  };
 
   const handleRefresh = () => {
     setIsLoading(true)

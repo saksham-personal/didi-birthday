@@ -109,7 +109,7 @@ export function StickyNote({
 
         <div className="flex items-center justify-between text-xs">
           <div>
-            <p className="font-semibold">— {author}</p>
+            <p className="font-semibold text-[11px]">— {author}</p>
             <p className="opacity-70">{new Date(timestamp).toLocaleDateString('en-GB')}</p>
           </div>
 

@@ -46,7 +46,7 @@ export function SurpriseMessageModal({ isOpen, onClose, onSubmit }: SurpriseMess
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent>
+      <DialogContent className="max-h-[80vh] overflow-y-auto sm:max-w-lg">
         <DialogHeader>
           <DialogTitle>Write a Surprise Message</DialogTitle>
           <DialogDescription>

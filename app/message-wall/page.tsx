@@ -61,9 +61,23 @@ export default function MessageWallPage() {
     }
   }
 
-  const handleLike = (messageId: string) => {
-    setMessages((prev) => prev.map((msg) => (msg.id === messageId ? { ...msg, likes: msg.likes + 1 } : msg)))
-  }
+  const handleLike = async (messageId: string) => {
+    try {
+      const response = await fetch(`/api/messages/${messageId}/like`, {
+        method: "POST",
+      });
+      if (response.ok) {
+        const updatedMessage = await response.json();
+        setMessages((prev) =>
+          prev.map((msg) =>
+            msg.id === messageId ? { ...msg, likes: updatedMessage.likes } : msg
+          )
+        );
+      }
+    } catch (error) {
+      console.error("Failed to like message:", error);
+    }
+  };
 
   const handleRefresh = () => {
     setIsLoading(true)

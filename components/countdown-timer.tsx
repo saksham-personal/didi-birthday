@@ -82,7 +82,7 @@ export function CountdownTimer() {
       {timeLeft.days === 0 && timeLeft.hours === 0 && timeLeft.minutes === 0 && timeLeft.seconds === 0 && (
         <div className="mt-8">
           <div className="text-6xl animate-bounce-gentle">🎉</div>
-          <p className="font-heading font-bold text-2xl text-primary mt-4">Happy Birthday, Prakshi didi!</p>
+          <p className="font-heading font-bold text-2xl text-primary mt-4">Happy birthday our beloved Paru!</p>
         </div>
       )}
     </div>

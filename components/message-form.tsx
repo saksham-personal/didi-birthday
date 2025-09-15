@@ -11,7 +11,7 @@ import { Label } from "@/components/ui/label"
 import { Send, Upload } from "lucide-react"
 
 interface MessageFormProps {
-  onSubmit: (message: { text: string; author: string; title: string; color: string; image_url?: string }) => void
+  onSubmit: (message: { text: string; author: string; title: string; color: string }) => void
 }
 
 const colors = [
@@ -31,13 +31,6 @@ export function MessageForm({ onSubmit }: MessageFormProps) {
   const [title, setTitle] = useState("")
   const [selectedColor, setSelectedColor] = useState("pink")
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [image, setImage] = useState<File | null>(null)
-  const [isUploading, setIsUploading] = useState(false)
-
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files ? e.target.files : null;
-    setImage(file);
-  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -46,34 +39,12 @@ export function MessageForm({ onSubmit }: MessageFormProps) {
 
     setIsSubmitting(true)
 
-    let imageUrl: string | undefined = undefined
-    if (image) {
-      setIsUploading(true)
-      const formData = new FormData()
-      formData.append("file", image)
-      try {
-        const response = await fetch("/api/upload", {
-          method: "POST",
-          body: formData,
-        })
-        if (response.ok) {
-          const { url } = await response.json()
-          imageUrl = url
-        }
-      } catch (error) {
-        console.error("Failed to upload image:", error)
-      } finally {
-        setIsUploading(false)
-      }
-    }
-
     try {
       await onSubmit({
         text: message.trim(),
         author: author.trim(),
         title: title.trim(),
         color: selectedColor,
-        image_url: imageUrl,
       })
 
       // Reset form
@@ -81,7 +52,6 @@ export function MessageForm({ onSubmit }: MessageFormProps) {
       setAuthor("")
       setTitle("")
       setSelectedColor("pink")
-      setImage(null)
     } catch (error) {
       console.error("Failed to submit message:", error)
     } finally {
@@ -150,13 +120,6 @@ export function MessageForm({ onSubmit }: MessageFormProps) {
               />
             ))}
           </div>
-        </div>
-
-        <div>
-          <Label htmlFor="image-upload" className="text-sm font-medium">
-            Add Image (Optional)
-          </Label>
-          <Input id="image-upload" type="file" accept="image/*" onChange={handleImageUpload} className="mt-1" />
         </div>
 
         <Button
