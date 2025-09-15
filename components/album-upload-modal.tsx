@@ -3,6 +3,7 @@
 import type React from "react"
 
 import { useState } from "react"
+import heic2any from "heic2any"
 import { X, Upload, Plus, Trash2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -36,25 +37,35 @@ export function AlbumUploadModal({ isOpen, onClose, onSubmit }: AlbumUploadModal
 
     setIsUploading(true);
 
-    for (const file of files) {
-      const formData = new FormData();
-      formData.append('file', file);
-
+    for (let file of files) {
       try {
-        const response = await fetch('/api/upload', {
-          method: 'POST',
+        if (file.type === "image/heic" || file.name.endsWith(".heic")) {
+          const convertedBlob = await heic2any({
+            blob: file,
+            toType: "image/jpeg",
+            quality: 0.8,
+          });
+          file = new File([convertedBlob as Blob], file.name.replace(/\.[^/.]+$/, ".jpg"), {
+            type: "image/jpeg",
+          });
+        }
+
+        const formData = new FormData();
+        formData.append("file", file);
+
+        const response = await fetch("/api/upload", {
+          method: "POST",
           body: formData,
         });
 
         if (!response.ok) {
-          throw new Error('File upload failed');
+          throw new Error("File upload failed");
         }
 
         const { url } = await response.json();
         setItems((prev) => [...prev, { type: "image", url }]);
-
       } catch (error) {
-        console.error('Error uploading file:', error);
+        console.error("Error uploading file:", error);
       }
     }
     setIsUploading(false);
